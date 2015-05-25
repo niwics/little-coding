@@ -42,10 +42,10 @@ img = Image.new("RGB", (COLS*(TILE_WIDTH+2*TILE_MARGIN), ROWS*(TILE_HEIGHT+2*TIL
 # add tiles
 for x in range(COLS):
   for y in range(ROWS):
-    if y*ROWS+x >= tileCount:
+    if y*COLS+x >= tileCount:
       break;	# na druhy cyklus kaslem:)
     #endif
-    tile = Image.open(path + filenames[y*ROWS+x])
+    tile = Image.open(path + filenames[y*COLS+x])
     img.paste(tile, (TILE_MARGIN+x*(TILE_WIDTH+2*TILE_MARGIN), TILE_MARGIN+y*(TILE_HEIGHT+2*TILE_MARGIN)))
 #endfor
 
