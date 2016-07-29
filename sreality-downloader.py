@@ -18,7 +18,7 @@ DEFAULT_OUT_DIR = '/tmp'
 HELP = ("Sreality images downloader - \n\
 Author: niwi.cz, 2016\n\
 Usage:\n\
-%s /file/with/hml [outdir]" % sys.argv[0])
+%s /file/with/html [outdir]" % sys.argv[0])
 
 
 def err(message):
