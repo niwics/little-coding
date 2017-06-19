@@ -3,17 +3,26 @@
 import argparse
 import logging
 import os
+import subprocess
 import time
 
 
 DEFAULT_HOSTNAME = "8.8.8.8"
 DEFAULT_SLEEP_SECONDS = 5
 
+
 def ping(ip):
-    command = "ping -c 1 -t 3 %s &> /dev/null" % ip
+    cmd_list = ['ping', '-c', '1', ip]
     log = logging.getLogger(__name__)
-    log.debug(command)
-    return os.system(command)
+    log.debug(" ".join(cmd_list))
+    with open(os.devnull, 'wb') as devnull:
+        try:
+            subprocess.check_call(cmd_list, stdout=devnull, stderr=subprocess.STDOUT)
+        except subprocess.CalledProcessError as e:
+            log.debug(e) # debug => for verbose mode only
+            return False
+    return True
+
 
 def main():
 
@@ -42,15 +51,15 @@ def main():
 
     while True:
         response = ping(opts['target'])
-        if response == 0:
+        if response:
             log.info("OK")
         else:
             # test gateway accessibility
             response_gw = ping(opts['gateway'])
-            if response_gw == 0:
-                log.error('NO_CONNECTION_TARGET: Could not connect to the remote server "%s"!', opts['target'])
+            if response_gw:
+                log.error('NO_CONNECTION_TARGET: Could not connect to the remote server "%s".', opts['target'])
             else:
-                log.error('NO_CONNECTION_GATEWAY: Could not connect to the gateway "%s"!', opts['gateway'])
+                log.error('NO_CONNECTION_GATEWAY: Could not connect to the gateway "%s".', opts['gateway'])
         time.sleep(DEFAULT_SLEEP_SECONDS)
 
 
