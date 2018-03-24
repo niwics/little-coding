@@ -12,7 +12,9 @@ DEFAULT_SLEEP_SECONDS = 5
 
 
 def ping(ip):
-    cmd_list = ['ping', '-c', '1', '-W', str(int(DEFAULT_SLEEP_SECONDS/2)), ip]
+    cmd_list = ['ping', '-c', '1', '-W', str(1000*int(DEFAULT_SLEEP_SECONDS/2)), ip]
+    # for OS X:
+    #cmd_list = ['ping', '-c', '1', ip]
     log = logging.getLogger(__name__)
     log.debug(" ".join(cmd_list))
     with open(os.devnull, 'wb') as devnull:
