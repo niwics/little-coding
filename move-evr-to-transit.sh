@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
 # Set the source and destination directories
-src="/Users/miroslav.kvasnica/PhoneDocs/EVR"
-dst="/Users/miroslav.kvasnica/Documents/EVR-transit"
+src="/Users/miroslav.Kvasnica/PhoneDocs/EVR"
+dst="/Users/miroslav.Kvasnica/Documents/EVR-transit"
 
 # Calculate the timestamp for 30 days ago
 timestamp=$(date -v-30d +%s)
